@@ -1,9 +1,37 @@
 let addToy = false;
 
+function createNewToy() { 
+  let toyName = document.querySelector("input[name='name']");
+  toyName = toyName.value;
+  let toyImageURL = document.querySelector("input[name='image']");
+  toyImageURL = toyImageURL.value;
+
+  const configurationObject = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    },
+    body: JSON.stringify({
+      name: toyName,
+      image: toyImageURL,
+    }),
+  };
+
+  return fetch("http://localhost:3000/toys", configurationObject)
+      .then((response) => response.json())
+      .then((object) => {
+        console.log(object);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.querySelector("#new-toy-btn");
   const toyFormContainer = document.querySelector(".container");
-  renderChars();
+  
   addBtn.addEventListener("click", () => {
     // hide & seek with the form
     addToy = !addToy;
@@ -13,6 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
       toyFormContainer.style.display = "none";
     }
   });
+  const createToyForm = document.querySelector("form");
+  createToyForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    createNewToy();
+  });
+  renderChars();
 });
 
 function renderChars() {
