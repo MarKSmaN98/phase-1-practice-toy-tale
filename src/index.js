@@ -66,9 +66,22 @@ function addLike(id) {
   //update api first
   //might have to change id names of div or button as they match rn
   targetLikes = document.querySelector(`div#card${id} p`); //get the right like 
-  targetLikes = targetLikes.textContent += 1;
-
+  targetLikes.textContent = parseInt(targetLikes.textContent, 10) + 1;
+  console.log(targetLikes);
+  console.log(id)
+  let likeNum = targetLikes.textContent;
+  
   //update server
+  fetch(`http://localhost:3000/toys/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({likes: likeNum})
+
+  })
+    .then(res => res.json)
+    .then(res => console.log(res));
 }
 
 
