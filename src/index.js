@@ -27,50 +27,48 @@ function renderChars() {
         //create a card
         //fill all data in card
         //append card to list
-         let topOfCard = document.createElement('div'); //beginning of each card
-         topOfCard.id = tmpToyId;
-         topOfCard.className = 'card';
+        let topOfCard = document.createElement('div'); //beginning of each card
+        topOfCard.id = `card${tmpToyId}`;
+        topOfCard.className = 'card';
 
-         let name = document.createElement('h2');
-         name.textContent = toys[index].name;
+        let name = document.createElement('h2');
+        name.textContent = toys[index].name;
 
-         let img = document.createElement('img');
-         img.className = 'toy-avatar';
-         img.src = toys[index].image;
-         img.alt = toys[index].name;
+        let img = document.createElement('img');
+        img.className = 'toy-avatar';
+        img.src = toys[index].image;
+        img.alt = toys[index].name;
 
-         let likes = document.createElement('p');
-         likes.textContent = toys[index].likes;
+        let likes = document.createElement('p');
+        likes.textContent = toys[index].likes;
 
-         topOfCard.append(name);
-         topOfCard.append(img);
-         topOfCard.append(likes);
-
-
-        // const nameDiv = document.createElement('div');
-        // nameDiv.id = 'name';
-        // nameDiv.textContent = toys[index].name;
-
-        // const imageDiv = document.createElement('div');
-        // imageDiv.id = 'image';
-        // imageDiv.className = 'toy-avatar';
-        // imageDiv.innerHTML = `<img src='${toys[index].image}' alt='${toys[index].name}'>`;
-
-        // const likesDiv = document.createElement('div');
-        // likesDiv.id = 'likes';
-        // likesDiv.textContent = toys[index].likes;
+        let button = document.createElement('button');
+        button.textContent = 'Like ❤️';
+        button.className = 'like-btn';
+        button.id = `${toys[index].id}`;
+         button.addEventListener('click', (e) => {
+           addLike(button.id);
+           //console.log(button.id);
+         });
         
-        // //append values to card
-        // topOfCard.append(nameDiv);
-        // topOfCard.append(imageDiv);
-        // topOfCard.append(likesDiv);
-        
+         //class="like-btn" id="[toy_id]"
+
+        topOfCard.append(name);
+        topOfCard.append(img);
+        topOfCard.append(likes);
+        topOfCard.append(button);
         topDiv.append(topOfCard);
       }
-      //append card list to start of card element
     })
 }
 
-function pushChars() {
+function addLike(id) {
+  //update api first
+  //might have to change id names of div or button as they match rn
+  targetLikes = document.querySelector(`div#card${id} p`); //get the right like 
+  targetLikes = targetLikes.textContent += 1;
 
+  //update server
 }
+
+
